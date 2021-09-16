@@ -8,7 +8,15 @@
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
     "start": "node dist/server.js",
     "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules --no-notify src/server.ts",
-    "test": "jest"
+    "test": "jest",
+    "prepare": "husky install",
+    "commit": "git-cz"
+  },
+  "lint-staged": {
+    "src/**/*.ts": [
+      "eslint --fix",
+      "cross-env CI=true yarn test --bail --findRelatedTests"
+    ]
   },
   "devDependencies": {
     "@babel/cli": "^7.15.4",
@@ -16,11 +24,16 @@
     "@babel/node": "^7.15.4",
     "@babel/preset-env": "^7.15.6",
     "@babel/preset-typescript": "^7.15.0",
+    "@commitlint/cli": "^13.1.0",
+    "@commitlint/config-conventional": "^13.1.0",
     "@types/express": "^4.17.13",
     "@types/jest": "^27.0.1",
     "@typescript-eslint/eslint-plugin": "^4.31.1",
     "@typescript-eslint/parser": "^4.31.1",
     "babel-plugin-module-resolver": "^4.1.0",
+    "commitizen": "^4.2.4",
+    "cross-env": "^7.0.3",
+    "cz-conventional-changelog": "3.3.0",
     "eslint": "^7.12.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-config-standard": "^16.0.3",
@@ -28,7 +41,9 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-promise": "^4.2.1",
+    "husky": "^7.0.0",
     "jest": "^27.2.0",
+    "lint-staged": "^11.1.2",
     "prettier": "^2.4.1",
     "ts-jest": "^27.0.5",
     "ts-node-dev": "^1.1.8",
@@ -37,5 +52,10 @@
   },
   "dependencies": {
     "express": "^4.17.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
