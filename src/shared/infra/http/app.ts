@@ -1,13 +1,17 @@
+import 'reflect-metadata'
 import 'dotenv/config'
-import express, { Request, Response, NextFunction } from 'express'
 import '../mongoose'
+import '@shared/container'
+import express, { Request, Response, NextFunction } from 'express'
+import 'express-async-errors'
 import { AppError } from '../../errors/AppError'
+import { router } from './routes'
 
 const app = express()
 
 app.use(express.json())
 
-export { app }
+app.use(router)
 
 app.use((err: Error, req: Request, res: Response, _: NextFunction) => {
   if (err instanceof AppError) {
@@ -24,3 +28,5 @@ app.use((err: Error, req: Request, res: Response, _: NextFunction) => {
     message: 'Internal Server Error'
   })
 })
+
+export { app }
