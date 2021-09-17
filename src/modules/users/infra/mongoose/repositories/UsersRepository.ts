@@ -4,7 +4,7 @@ import User, { UserDocument } from '../schemas/User'
 
 export class UsersRepository implements IUsersRepository {
   async findByEmail(email: string): Promise<UserDocument> {
-    const user = await User.findOne({ email })
+    const user = await User.findOne({ email }).select('+password')
     return user
   }
 

@@ -1,5 +1,5 @@
 import { IHashPassword } from '../models/IHashPassword'
-import { AES } from 'crypto-js'
+import CryptoJS, { AES } from 'crypto-js'
 
 export class HashPassword implements IHashPassword {
   generateHash(password: string): string {
@@ -9,5 +9,17 @@ export class HashPassword implements IHashPassword {
     ).toString()
 
     return hashedPassword
+  }
+
+  compare(password: string, hashedPassword: string): boolean {
+    const hashedUserPassword = AES.decrypt(
+      hashedPassword,
+      process.env.SECRET_HASH_KEY
+    )
+
+    const userPassword = hashedUserPassword.toString(CryptoJS.enc.Utf8)
+    const passwordMatch = userPassword === password
+
+    return passwordMatch
   }
 }
