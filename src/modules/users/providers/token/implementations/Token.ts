@@ -8,7 +8,7 @@ export class Token implements IToken {
 
     const token = sign(
       {
-        userId: userId.toString(),
+        id: userId.toString(),
         isAdmin
       },
       secret,

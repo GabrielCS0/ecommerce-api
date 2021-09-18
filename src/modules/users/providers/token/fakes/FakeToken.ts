@@ -5,7 +5,7 @@ export class FakeToken implements IToken {
   generate(isAdmin: boolean, userId: string): string {
     const token = sign(
       {
-        userId: userId.toString(),
+        id: userId.toString(),
         isAdmin
       },
       'secret64617rhd26ts',

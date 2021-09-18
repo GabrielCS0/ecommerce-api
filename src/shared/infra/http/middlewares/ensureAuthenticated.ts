@@ -3,10 +3,8 @@ import { verify } from 'jsonwebtoken'
 import { AppError } from '@shared/errors/AppError'
 
 interface IPayload {
-  user: {
-    id: string
-    isAdmin: boolean
-  }
+  id: string
+  isAdmin: boolean
 }
 
 export function ensureAuthenticated(
@@ -27,8 +25,12 @@ export function ensureAuthenticated(
   if (!/^Bearer$/i.test(scheme)) throw new AppError('Malformatted token', 401)
 
   try {
-    const { user } = verify(token, process.env.JWT_SECRET) as IPayload
-    req.user = user
+    const { id, isAdmin } = verify(token, process.env.JWT_SECRET) as IPayload
+    req.user = {
+      id,
+      isAdmin
+    }
+
     return next()
   } catch (err) {
     throw new AppError('Token invalid', 401)

@@ -8,9 +8,7 @@ export function ensurePermission(
 ): void {
   const { id, isAdmin } = req.user
 
-  if (!(req.params.id === id) || !isAdmin) {
-    throw new AppError('You are not alowed to do that!', 401)
-  }
+  if (req.params.id === id || isAdmin) return next()
 
-  return next()
+  throw new AppError('You are not alowed to do that!', 401)
 }
