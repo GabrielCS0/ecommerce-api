@@ -1,4 +1,5 @@
 import { ICreateUserDTO } from '@modules/users/dtos/ICreateUserDTO'
+import { IUpdateUserDTO } from '@modules/users/dtos/IUpdateUserDTO'
 import { IUsersRepository } from '@modules/users/repositories/IUsersRepository'
 import User, { UserDocument } from '../schemas/User'
 
@@ -22,6 +23,25 @@ export class UsersRepository implements IUsersRepository {
     })
 
     await user.save()
+
+    return user
+  }
+
+  async findByIdAndUpdate({
+    id,
+    name,
+    email,
+    password
+  }: IUpdateUserDTO): Promise<UserDocument> {
+    const user = await User.findOneAndUpdate(
+      { _id: id },
+      {
+        name,
+        email,
+        password
+      },
+      { new: true }
+    )
 
     return user
   }
