@@ -8,11 +8,11 @@ export class Token implements IToken {
 
     const token = sign(
       {
+        userId: userId.toString(),
         isAdmin
       },
       secret,
       {
-        subject: userId.toString(),
         expiresIn
       }
     )
