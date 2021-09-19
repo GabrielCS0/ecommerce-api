@@ -49,4 +49,9 @@ export class UsersRepository implements IUsersRepository {
   async findByIdAndDelete(id: string): Promise<void> {
     await User.findOneAndDelete({ _id: id })
   }
+
+  async findById(id: string): Promise<UserDocument> {
+    const user = await User.findOne({ _id: id })
+    return user
+  }
 }

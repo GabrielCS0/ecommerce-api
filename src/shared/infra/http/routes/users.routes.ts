@@ -5,6 +5,7 @@ import { UpdateUserController } from '@modules/users/useCases/updateUser/UpdateU
 import { ensureAuthenticated } from '../middlewares/ensureAuthenticated'
 import { ensurePermission } from '../middlewares/ensurePermission'
 import { DeleteUserController } from '@modules/users/useCases/deleteUser/DeleteUserController'
+import { GetUserByIdController } from '@modules/users/useCases/getUserById/GetUserByIdController'
 
 const usersRoutes = Router()
 
@@ -12,6 +13,7 @@ const createUserController = new CreateUserController()
 const authenticateUserController = new AuthenticateUserController()
 const updateUserController = new UpdateUserController()
 const deleteUserController = new DeleteUserController()
+const getUserByIdController = new GetUserByIdController()
 
 usersRoutes.post('/', createUserController.handle)
 usersRoutes.post('/authenticate', authenticateUserController.handle)
@@ -26,6 +28,12 @@ usersRoutes.delete(
   ensureAuthenticated,
   ensurePermission,
   deleteUserController.handle
+)
+usersRoutes.get(
+  '/:id',
+  ensureAuthenticated,
+  ensurePermission,
+  getUserByIdController.handle
 )
 
 export { usersRoutes }

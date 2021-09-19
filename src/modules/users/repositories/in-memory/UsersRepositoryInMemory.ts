@@ -39,4 +39,8 @@ export class UsersRepositoryInMemory implements IUsersRepository {
       return undefined
     })
   }
+
+  async findById(id: string): Promise<UserDocument> {
+    return this.users.find(user => user._id === id)
+  }
 }

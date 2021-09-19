@@ -7,4 +7,5 @@ export interface IUsersRepository {
   create(data: ICreateUserDTO): Promise<UserDocument>
   findByIdAndUpdate(data: IUpdateUserDTO): Promise<UserDocument>
   findByIdAndDelete(id: string): Promise<void>
+  findById(id: string): Promise<UserDocument>
 }
