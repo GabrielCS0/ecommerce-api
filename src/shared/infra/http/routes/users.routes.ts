@@ -6,6 +6,8 @@ import { ensureAuthenticated } from '../middlewares/ensureAuthenticated'
 import { ensurePermission } from '../middlewares/ensurePermission'
 import { DeleteUserController } from '@modules/users/useCases/deleteUser/DeleteUserController'
 import { GetUserByIdController } from '@modules/users/useCases/getUserById/GetUserByIdController'
+import { GetAllUsersController } from '@modules/users/useCases/getAllUsers/GetAllUsersController'
+import { ensureAdmin } from '../middlewares/ensureAdmin'
 
 const usersRoutes = Router()
 
@@ -14,6 +16,7 @@ const authenticateUserController = new AuthenticateUserController()
 const updateUserController = new UpdateUserController()
 const deleteUserController = new DeleteUserController()
 const getUserByIdController = new GetUserByIdController()
+const getAllUsersController = new GetAllUsersController()
 
 usersRoutes.post('/', createUserController.handle)
 usersRoutes.post('/authenticate', authenticateUserController.handle)
@@ -34,6 +37,12 @@ usersRoutes.get(
   ensureAuthenticated,
   ensurePermission,
   getUserByIdController.handle
+)
+usersRoutes.get(
+  '/',
+  ensureAuthenticated,
+  ensureAdmin,
+  getAllUsersController.handle
 )
 
 export { usersRoutes }

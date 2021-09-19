@@ -54,4 +54,14 @@ export class UsersRepository implements IUsersRepository {
     const user = await User.findOne({ _id: id })
     return user
   }
+
+  async findAllUsers(): Promise<UserDocument[]> {
+    const users = await User.find()
+    return users
+  }
+
+  async findNewUsers(): Promise<UserDocument[]> {
+    const users = await User.find().sort({ _id: -1 }).limit(5)
+    return users
+  }
 }

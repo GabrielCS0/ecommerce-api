@@ -43,4 +43,13 @@ export class UsersRepositoryInMemory implements IUsersRepository {
   async findById(id: string): Promise<UserDocument> {
     return this.users.find(user => user._id === id)
   }
+
+  async findAllUsers(): Promise<UserDocument[]> {
+    return this.users
+  }
+
+  async findNewUsers(): Promise<UserDocument[]> {
+    const users = this.users.slice(-2)
+    return users
+  }
 }
