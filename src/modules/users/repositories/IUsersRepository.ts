@@ -6,4 +6,5 @@ export interface IUsersRepository {
   findByEmail(email: string): Promise<UserDocument>
   create(data: ICreateUserDTO): Promise<UserDocument>
   findByIdAndUpdate(data: IUpdateUserDTO): Promise<UserDocument>
+  findByIdAndDelete(id: string): Promise<void>
 }

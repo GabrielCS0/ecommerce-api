@@ -32,4 +32,11 @@ export class UsersRepositoryInMemory implements IUsersRepository {
 
     return user
   }
+
+  async findByIdAndDelete(id: string): Promise<void> {
+    this.users = this.users.map(user => {
+      if (user._id !== id) return user
+      return undefined
+    })
+  }
 }
