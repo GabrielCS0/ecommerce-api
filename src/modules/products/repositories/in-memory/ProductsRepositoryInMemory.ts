@@ -17,4 +17,14 @@ export class ProductsRepositoryInMemory implements IProductsRepository {
 
     return product
   }
+
+  async findByIdAndUpdate(
+    id: string,
+    { title, desc, img, categories, size, color, price }: ICreateProductDTO
+  ): Promise<ProductDocument> {
+    const product = this.products.find(product => product._id === id)
+    Object.assign(product, { title, desc, img, categories, size, color, price })
+
+    return product
+  }
 }

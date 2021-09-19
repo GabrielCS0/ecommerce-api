@@ -14,4 +14,17 @@ export class ProductsRepositort implements IProductsRepository {
 
     return product
   }
+
+  async findByIdAndUpdate(
+    id: string,
+    { title, desc, img, categories, size, color, price }: ICreateProductDTO
+  ): Promise<ProductDocument> {
+    const product = await Product.findOneAndUpdate(
+      { _id: id },
+      { title, desc, img, categories, size, color, price },
+      { new: true }
+    )
+
+    return product
+  }
 }
