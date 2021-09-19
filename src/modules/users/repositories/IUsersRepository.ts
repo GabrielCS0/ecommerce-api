@@ -1,6 +1,7 @@
 import { UserDocument } from '../infra/mongoose/schemas/User'
 import { ICreateUserDTO } from '../dtos/ICreateUserDTO'
 import { IUpdateUserDTO } from '../dtos/IUpdateUserDTO'
+import { IUserStatsResponse } from '../useCases/userStats/UserStatsUseCase'
 
 export interface IUsersRepository {
   findByEmail(email: string): Promise<UserDocument>
@@ -10,4 +11,5 @@ export interface IUsersRepository {
   findById(id: string): Promise<UserDocument>
   findAllUsers(): Promise<UserDocument[]>
   findNewUsers(): Promise<UserDocument[]>
+  userStats(): Promise<IUserStatsResponse[]>
 }

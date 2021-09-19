@@ -1,6 +1,7 @@
 import { ICreateUserDTO } from '@modules/users/dtos/ICreateUserDTO'
 import { IUpdateUserDTO } from '@modules/users/dtos/IUpdateUserDTO'
 import User, { UserDocument } from '@modules/users/infra/mongoose/schemas/User'
+import { IUserStatsResponse } from '@modules/users/useCases/userStats/UserStatsUseCase'
 import { IUsersRepository } from '../IUsersRepository'
 
 export class UsersRepositoryInMemory implements IUsersRepository {
@@ -51,5 +52,12 @@ export class UsersRepositoryInMemory implements IUsersRepository {
   async findNewUsers(): Promise<UserDocument[]> {
     const users = this.users.slice(-2)
     return users
+  }
+
+  async userStats(): Promise<IUserStatsResponse[]> {
+    const total = this.users.length
+    const month = new Date().getMonth()
+
+    return [{ _id: month + 1, total }]
   }
 }

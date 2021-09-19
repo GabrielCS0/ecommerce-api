@@ -1,6 +1,7 @@
 import { ICreateUserDTO } from '@modules/users/dtos/ICreateUserDTO'
 import { IUpdateUserDTO } from '@modules/users/dtos/IUpdateUserDTO'
 import { IUsersRepository } from '@modules/users/repositories/IUsersRepository'
+import { IUserStatsResponse } from '@modules/users/useCases/userStats/UserStatsUseCase'
 import User, { UserDocument } from '../schemas/User'
 
 export class UsersRepository implements IUsersRepository {
@@ -63,5 +64,27 @@ export class UsersRepository implements IUsersRepository {
   async findNewUsers(): Promise<UserDocument[]> {
     const users = await User.find().sort({ _id: -1 }).limit(5)
     return users
+  }
+
+  async userStats(): Promise<IUserStatsResponse[]> {
+    const date = new Date()
+    const lastYear = new Date(date.setFullYear(date.getFullYear() - 1))
+
+    const userStats: IUserStatsResponse[] = await User.aggregate([
+      { $match: { createdAt: { $gte: lastYear } } },
+      {
+        $project: {
+          month: { $month: '$createdAt' }
+        }
+      },
+      {
+        $group: {
+          _id: '$month',
+          total: { $sum: 1 }
+        }
+      }
+    ])
+
+    return userStats
   }
 }
