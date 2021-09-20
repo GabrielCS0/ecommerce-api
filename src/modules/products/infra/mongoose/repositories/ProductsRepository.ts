@@ -27,4 +27,8 @@ export class ProductsRepositort implements IProductsRepository {
 
     return product
   }
+
+  async findByIdAndDelete(id: string): Promise<void> {
+    await Product.findOneAndDelete({ _id: id })
+  }
 }

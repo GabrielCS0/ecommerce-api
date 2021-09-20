@@ -27,4 +27,11 @@ export class ProductsRepositoryInMemory implements IProductsRepository {
 
     return product
   }
+
+  async findByIdAndDelete(id: string): Promise<void> {
+    this.products = this.products.map(product => {
+      if (product._id !== id) return product
+      return undefined
+    })
+  }
 }
