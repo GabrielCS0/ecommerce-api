@@ -12,6 +12,9 @@ import { Token } from '@modules/users/providers/token/implementations/Token'
 import { IProductsRepository } from '@modules/products/repositories/IProductsRepository'
 import { ProductsRepositort } from '@modules/products/infra/mongoose/repositories/ProductsRepository'
 
+import { ICartsRepository } from '@modules/carts/repositories/ICartsRepository'
+import { CartsRepository } from '@modules/carts/infra/mongoose/repositories/CartsRepository'
+
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
   UsersRepository
@@ -24,4 +27,9 @@ container.registerSingleton<IToken>('Token', Token)
 container.registerSingleton<IProductsRepository>(
   'ProductsRepository',
   ProductsRepositort
+)
+
+container.registerSingleton<ICartsRepository>(
+  'CartsRepository',
+  CartsRepository
 )
