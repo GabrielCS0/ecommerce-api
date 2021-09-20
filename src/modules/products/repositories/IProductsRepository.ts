@@ -9,4 +9,5 @@ export interface IProductsRepository {
     data: ICreateProductDTO
   ): Promise<ProductDocument>
   findByIdAndDelete(id: string): Promise<void>
+  findById(id: string): Promise<ProductDocument>
 }

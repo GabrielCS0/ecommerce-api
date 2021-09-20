@@ -31,4 +31,9 @@ export class ProductsRepositort implements IProductsRepository {
   async findByIdAndDelete(id: string): Promise<void> {
     await Product.findOneAndDelete({ _id: id })
   }
+
+  async findById(id: string): Promise<ProductDocument> {
+    const product = await Product.findOne({ _id: id })
+    return product
+  }
 }

@@ -1,5 +1,6 @@
 import { CreateProductController } from '@modules/products/useCases/createProduct/CreateProductController'
 import { DeleteProductController } from '@modules/products/useCases/deleteProduct/DeleteProductController'
+import { GetProductByIdController } from '@modules/products/useCases/getProductById/GetProductByIdController'
 import { UpdateProductController } from '@modules/products/useCases/updateProduct/UpdateProductController'
 import { Router } from 'express'
 import { ensureAdmin } from '../middlewares/ensureAdmin'
@@ -10,6 +11,7 @@ const productsRoutes = Router()
 const createProductController = new CreateProductController()
 const updateProductController = new UpdateProductController()
 const deleteProductController = new DeleteProductController()
+const getProductByIdController = new GetProductByIdController()
 
 productsRoutes.post(
   '/',
@@ -29,5 +31,6 @@ productsRoutes.delete(
   ensureAdmin,
   deleteProductController.handle
 )
+productsRoutes.get('/find/:id', getProductByIdController.handle)
 
 export { productsRoutes }
