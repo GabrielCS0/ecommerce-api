@@ -36,4 +36,19 @@ export class ProductsRepositort implements IProductsRepository {
     const product = await Product.findOne({ _id: id })
     return product
   }
+
+  async findNewProducts(): Promise<ProductDocument[]> {
+    const products = await Product.find().sort({ createdAt: -1 }).limit(5)
+    return products
+  }
+
+  async findProductsByCategory(category: string): Promise<ProductDocument[]> {
+    const products = await Product.find({ categories: { $in: [category] } })
+    return products
+  }
+
+  async findAllProducts(): Promise<ProductDocument[]> {
+    const products = await Product.find()
+    return products
+  }
 }

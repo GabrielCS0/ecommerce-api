@@ -10,4 +10,7 @@ export interface IProductsRepository {
   ): Promise<ProductDocument>
   findByIdAndDelete(id: string): Promise<void>
   findById(id: string): Promise<ProductDocument>
+  findNewProducts(): Promise<ProductDocument[]>
+  findProductsByCategory(category: string): Promise<ProductDocument[]>
+  findAllProducts(): Promise<ProductDocument[]>
 }
