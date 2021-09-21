@@ -18,4 +18,9 @@ export class CartsRepository implements ICartsRepository {
     const cart = await Cart.findOne({ userId })
     return cart
   }
+
+  async findAllCarts(): Promise<CartDocument[]> {
+    const carts = await Cart.find()
+    return carts
+  }
 }
