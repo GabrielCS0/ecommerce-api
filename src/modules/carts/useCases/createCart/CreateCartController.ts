@@ -12,6 +12,6 @@ export class CreateCartController {
 
     const cart = await createCartUseCase.execute({ userId, products })
 
-    return res.json(cart)
+    return res.status(201).json(cart)
   }
 }

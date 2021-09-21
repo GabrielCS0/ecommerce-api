@@ -29,7 +29,6 @@ export class CartsRepository implements ICartsRepository {
     id: string,
     { products }: IUpdateCartDTO
   ): Promise<CartDocument> {
-    // const cart = Cart.findOne({ _id: id }).then(cart => {})
     const cart = await Cart.findOneAndUpdate(
       { _id: id },
       { products },
