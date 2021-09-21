@@ -30,4 +30,13 @@ export class OrdersRepositoryInMemory implements IOrdersRepository {
       return null
     })
   }
+
+  async findUserOrders(userId: string): Promise<OrderDocument[]> {
+    const orders = this.orders.filter(order => {
+      if (order.userId.toString() === userId) return order
+      return null
+    })
+
+    return orders
+  }
 }

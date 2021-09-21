@@ -7,8 +7,9 @@ export function ensurePermission(
   next: NextFunction
 ): void {
   const { id, isAdmin } = req.user
+  const paramsId = req.params.userId || req.params.id
 
-  if (req.params.id === id || isAdmin) return next()
+  if (paramsId === id || isAdmin) return next()
 
   throw new AppError('You are not alowed to do that!', 401)
 }

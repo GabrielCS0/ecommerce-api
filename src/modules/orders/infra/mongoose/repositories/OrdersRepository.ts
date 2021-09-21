@@ -26,4 +26,9 @@ export class OrdersRepository implements IOrdersRepository {
   async findByIdAndDelete(id: string): Promise<void> {
     await Order.findOneAndDelete({ _id: id })
   }
+
+  async findUserOrders(userId: string): Promise<OrderDocument[]> {
+    const orders = await Order.find({ userId })
+    return orders
+  }
 }
