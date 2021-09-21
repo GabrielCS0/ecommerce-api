@@ -23,4 +23,11 @@ export class OrdersRepositoryInMemory implements IOrdersRepository {
 
     return order
   }
+
+  async findByIdAndDelete(id: string): Promise<void> {
+    this.orders = this.orders.map(order => {
+      if (order._id !== id) return order
+      return null
+    })
+  }
 }

@@ -22,4 +22,8 @@ export class OrdersRepository implements IOrdersRepository {
 
     return order
   }
+
+  async findByIdAndDelete(id: string): Promise<void> {
+    await Order.findOneAndDelete({ _id: id })
+  }
 }
