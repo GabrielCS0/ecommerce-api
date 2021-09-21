@@ -13,4 +13,9 @@ export class CartsRepository implements ICartsRepository {
   async findByIdAndDelete(id: string): Promise<void> {
     await Cart.findOneAndDelete({ _id: id })
   }
+
+  async findUserCart(userId: string): Promise<CartDocument> {
+    const cart = await Cart.findOne({ userId })
+    return cart
+  }
 }

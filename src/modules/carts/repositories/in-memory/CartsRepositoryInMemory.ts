@@ -18,4 +18,9 @@ export class CartsRepositoryInMemory implements ICartsRepository {
       return null
     })
   }
+
+  async findUserCart(userId: string): Promise<CartDocument> {
+    const cart = this.carts.find(cart => cart.userId === userId)
+    return cart
+  }
 }
