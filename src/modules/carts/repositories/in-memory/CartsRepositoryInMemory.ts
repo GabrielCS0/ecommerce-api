@@ -1,4 +1,5 @@
 import { ICreateCartDTO } from '@modules/carts/dtos/ICreateCartDTO'
+import { IUpdateCartDTO } from '@modules/carts/dtos/IUpdateCartDTO'
 import Cart, { CartDocument } from '@modules/carts/infra/mongoose/schemas/Cart'
 import { ICartsRepository } from '../ICartsRepository'
 
@@ -26,5 +27,15 @@ export class CartsRepositoryInMemory implements ICartsRepository {
 
   async findAllCarts(): Promise<CartDocument[]> {
     return this.carts
+  }
+
+  async findByIdAndUpdate(
+    id: string,
+    { products }: IUpdateCartDTO
+  ): Promise<CartDocument> {
+    const cart = this.carts.find(cart => cart._id === id)
+    Object.assign(cart, { products })
+
+    return cart
   }
 }

@@ -1,4 +1,5 @@
 import { ICreateCartDTO } from '@modules/carts/dtos/ICreateCartDTO'
+import { IUpdateCartDTO } from '@modules/carts/dtos/IUpdateCartDTO'
 import { ICartsRepository } from '@modules/carts/repositories/ICartsRepository'
 import Cart, { CartDocument } from '../schemas/Cart'
 
@@ -22,5 +23,19 @@ export class CartsRepository implements ICartsRepository {
   async findAllCarts(): Promise<CartDocument[]> {
     const carts = await Cart.find()
     return carts
+  }
+
+  async findByIdAndUpdate(
+    id: string,
+    { products }: IUpdateCartDTO
+  ): Promise<CartDocument> {
+    // const cart = Cart.findOne({ _id: id }).then(cart => {})
+    const cart = await Cart.findOneAndUpdate(
+      { _id: id },
+      { products },
+      { new: true }
+    )
+
+    return cart
   }
 }
