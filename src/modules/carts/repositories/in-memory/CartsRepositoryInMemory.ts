@@ -11,4 +11,11 @@ export class CartsRepositoryInMemory implements ICartsRepository {
 
     return cart
   }
+
+  async findByIdAndDelete(id: string): Promise<void> {
+    this.carts = this.carts.map(cart => {
+      if (cart._id !== id) return cart
+      return null
+    })
+  }
 }

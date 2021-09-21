@@ -9,4 +9,8 @@ export class CartsRepository implements ICartsRepository {
 
     return cart
   }
+
+  async findByIdAndDelete(id: string): Promise<void> {
+    await Cart.findOneAndDelete({ _id: id })
+  }
 }
