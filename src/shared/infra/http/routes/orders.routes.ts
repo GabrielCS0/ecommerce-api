@@ -7,6 +7,7 @@ import { UpdateOrderController } from '@modules/orders/useCases/updateOrder/Upda
 import { DeleteOrderController } from '@modules/orders/useCases/deleteOrder/DeleteOrderController'
 import { GetUserOrdersByUserIdController } from '@modules/orders/useCases/getUserOrdersByUserId/GetUserOrdersByUserIdController'
 import { GetAllOrdersController } from '@modules/orders/useCases/getAllOrders/GetAllOrdersController'
+import { GetMonthlyIncomeController } from '@modules/orders/useCases/getMonthlyIncome/GetMonthlyIncomeController'
 
 const ordersRoutes = Router()
 
@@ -15,6 +16,7 @@ const updateOrderController = new UpdateOrderController()
 const deleteOrderController = new DeleteOrderController()
 const getUserOrdersByUserIdController = new GetUserOrdersByUserIdController()
 const getAllOrdersController = new GetAllOrdersController()
+const getMonthlyIncomeController = new GetMonthlyIncomeController()
 
 ordersRoutes.post('/', ensureAuthenticated, createOrderController.handle)
 ordersRoutes.put(
@@ -40,6 +42,12 @@ ordersRoutes.get(
   ensureAuthenticated,
   ensureAdmin,
   getAllOrdersController.handle
+)
+ordersRoutes.get(
+  '/income',
+  ensureAuthenticated,
+  ensureAdmin,
+  getMonthlyIncomeController.handle
 )
 
 export { ordersRoutes }

@@ -1,5 +1,6 @@
 import { ICreateOrderDTO } from '@modules/orders/dtos/ICreateOrderDTO'
 import { IOrdersRepository } from '@modules/orders/repositories/IOrdersRepository'
+import { IMonthlyIncome } from '@modules/orders/useCases/getMonthlyIncome/GetMonthlyIncomeUseCase'
 import Order, { OrderDocument } from '../schemas/Order'
 
 export class OrdersRepository implements IOrdersRepository {
@@ -35,5 +36,31 @@ export class OrdersRepository implements IOrdersRepository {
   async findAllOrders(): Promise<OrderDocument[]> {
     const orders = await Order.find()
     return orders
+  }
+
+  async getMonthlyIncome(): Promise<IMonthlyIncome[]> {
+    const date = new Date()
+    const lastMonth = new Date(date.setMonth(date.getMonth() - 1))
+    const previousMonth = new Date(
+      new Date().setMonth(lastMonth.getMonth() - 1)
+    )
+
+    const income: IMonthlyIncome[] = await Order.aggregate([
+      { $match: { createdAt: { $gte: previousMonth } } },
+      {
+        $project: {
+          month: { $month: '$createdAt' },
+          sales: '$amount'
+        }
+      },
+      {
+        $group: {
+          _id: '$month',
+          total: { $sum: '$sales' }
+        }
+      }
+    ])
+
+    return income
   }
 }

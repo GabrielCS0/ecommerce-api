@@ -2,6 +2,7 @@ import { ICreateOrderDTO } from '@modules/orders/dtos/ICreateOrderDTO'
 import Order, {
   OrderDocument
 } from '@modules/orders/infra/mongoose/schemas/Order'
+import { IMonthlyIncome } from '@modules/orders/useCases/getMonthlyIncome/GetMonthlyIncomeUseCase'
 import { IOrdersRepository } from '../IOrdersRepository'
 
 export class OrdersRepositoryInMemory implements IOrdersRepository {
@@ -42,5 +43,16 @@ export class OrdersRepositoryInMemory implements IOrdersRepository {
 
   async findAllOrders(): Promise<OrderDocument[]> {
     return this.orders
+  }
+
+  async getMonthlyIncome(): Promise<IMonthlyIncome[]> {
+    let total = 0
+    this.orders.forEach(order => {
+      total += order.amount
+    })
+
+    const month = new Date().getMonth()
+
+    return [{ _id: month + 1, total }]
   }
 }
