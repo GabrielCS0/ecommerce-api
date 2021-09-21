@@ -9,4 +9,17 @@ export class OrdersRepository implements IOrdersRepository {
 
     return order
   }
+
+  async findByIdAndUpdate(
+    id: string,
+    { userId, products, amount, address, status }: ICreateOrderDTO
+  ): Promise<OrderDocument> {
+    const order = await Order.findOneAndUpdate(
+      { _id: id },
+      { userId, products, amount, address, status },
+      { new: true }
+    )
+
+    return order
+  }
 }

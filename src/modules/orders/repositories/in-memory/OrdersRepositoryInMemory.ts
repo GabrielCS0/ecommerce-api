@@ -5,11 +5,21 @@ import Order, {
 import { IOrdersRepository } from '../IOrdersRepository'
 
 export class OrdersRepositoryInMemory implements IOrdersRepository {
-  oders: OrderDocument[] = []
+  orders: OrderDocument[] = []
 
   async create(data: ICreateOrderDTO): Promise<OrderDocument> {
     const order = new Order(data)
-    this.oders.push(order)
+    this.orders.push(order)
+
+    return order
+  }
+
+  async findByIdAndUpdate(
+    id: string,
+    { userId, products, amount, address, status }: ICreateOrderDTO
+  ): Promise<OrderDocument> {
+    const order = this.orders.find(order => order._id === id)
+    Object.assign(order, { userId, products, amount, address, status })
 
     return order
   }
