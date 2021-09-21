@@ -6,4 +6,5 @@ export interface IOrdersRepository {
   findByIdAndUpdate(id: string, data: ICreateOrderDTO): Promise<OrderDocument>
   findByIdAndDelete(id: string): Promise<void>
   findUserOrders(userId: string): Promise<OrderDocument[]>
+  findAllOrders(): Promise<OrderDocument[]>
 }

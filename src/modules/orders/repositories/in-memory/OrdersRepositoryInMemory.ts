@@ -39,4 +39,8 @@ export class OrdersRepositoryInMemory implements IOrdersRepository {
 
     return orders
   }
+
+  async findAllOrders(): Promise<OrderDocument[]> {
+    return this.orders
+  }
 }

@@ -31,4 +31,9 @@ export class OrdersRepository implements IOrdersRepository {
     const orders = await Order.find({ userId })
     return orders
   }
+
+  async findAllOrders(): Promise<OrderDocument[]> {
+    const orders = await Order.find()
+    return orders
+  }
 }
