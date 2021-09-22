@@ -11,6 +11,6 @@ export class CreateProductController {
 
     const data = await createProductUseCase.execute(product)
 
-    return res.json(data)
+    return res.status(201).json(data)
   }
 }
