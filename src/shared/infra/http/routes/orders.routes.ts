@@ -18,7 +18,12 @@ const getUserOrdersByUserIdController = new GetUserOrdersByUserIdController()
 const getAllOrdersController = new GetAllOrdersController()
 const getMonthlyIncomeController = new GetMonthlyIncomeController()
 
-ordersRoutes.post('/', ensureAuthenticated, createOrderController.handle)
+ordersRoutes.post(
+  '/',
+  ensureAuthenticated,
+  ensurePermission,
+  createOrderController.handle
+)
 ordersRoutes.put(
   '/:id',
   ensureAuthenticated,

@@ -11,5 +11,8 @@ export function ensurePermission(
 
   if (paramsId === id || isAdmin) return next()
 
+  const { userId } = req.body
+  if (userId === id) return next()
+
   throw new AppError('You are not alowed to do that!', 401)
 }
