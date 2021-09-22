@@ -4,5 +4,6 @@ declare namespace NodeJS {
     MONGO_URL: string
     SECRET_HASH_KEY: string
     JWT_SECRET: string
+    STRIPE_KEY: string
   }
 }

@@ -18,6 +18,9 @@ import { CartsRepository } from '@modules/carts/infra/mongoose/repositories/Cart
 import { IOrdersRepository } from '@modules/orders/repositories/IOrdersRepository'
 import { OrdersRepository } from '@modules/orders/infra/mongoose/repositories/OrdersRepository'
 
+import { IPayment } from '@modules/payments/providers/payment/models/IPayment'
+import { Payment } from '@modules/payments/providers/payment/implementations/Payment'
+
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
   UsersRepository
@@ -41,3 +44,5 @@ container.registerSingleton<IOrdersRepository>(
   'OrdersRepository',
   OrdersRepository
 )
+
+container.registerSingleton<IPayment>('Payment', Payment)
